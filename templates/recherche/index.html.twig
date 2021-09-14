@@ -2,13 +2,32 @@
 
 {% block title %}Résultats de la recherche{% endblock %}
 
+{% block h1 %}Résultats de la recherche de <code>{{ mot }}</code>{% endblock %}
 {% block body %}
 {# EXO : remplacer les ... par le mot qui a été tapé dans
      la barre de recherche #}
-    <h2>Résultats de la recherche de <code>{{ mot }}</code></h2>
     <div class="card-columns">
         {% for livre in livres %}
             {% include "livre/vignette.html.twig" %}
+        {% else %}
+            Aucun livre ne correspond à cette recherche
         {% endfor %}
     </div>
+
+    {% if is_granted("ROLE_BIBLIO") %}
+        <ul class="list-groupp">
+            <li class="list-group-item">Abonnés</li>
+            {% for abonne in abonnes %}
+                <li class="list-group-item">
+                    <a href="{{ path("abonne_show", {id: abonne.id}) }}" class="btn btn-secondary">
+                        {{ abonne.pseudo }}, {{ abonne.prenom }} {{ abonne.nom }}
+                    
+                    </a>
+                </li>
+            {% else %}
+                Aucun abonné ne correspond à cette recherche
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 {% endblock %}
