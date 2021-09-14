@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <table border=1>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Double</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for nb in 1..nombre %}
+                <tr>
+                    <td>{{ nb }}</td>
+                    <td>{{ nb * 2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

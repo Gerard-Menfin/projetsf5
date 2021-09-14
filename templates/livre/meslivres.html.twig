@@ -1,0 +1,21 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for livre in livres %}
+                <tr>
+                    <td>{{ livre.titre }}</td>
+                    <td>{{ livre.auteur }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

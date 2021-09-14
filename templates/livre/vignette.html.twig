@@ -1,0 +1,36 @@
+<div class="card ">
+    <h4 class="card-header">{{ livre.titre }}</h4>
+
+    <div class="row  couverture">
+        <div class="col-4 d-flex align-items-center">
+            <img class="card-img p-1" src="{{ dossier_images ~ livre.couverture }}" alt="pas de couverture">
+        </div>
+
+        <div class="col-8">
+            <div class="card-body">
+                <p class="card-text">De : {{ livre.auteur }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-footer">
+        <a href="" class="card-link"> 
+            <i class="fa fa-book"></i> Voir plus 
+        </a>
+        {% if is_granted("ROLE_LECTEUR") %}
+            {% if livres_empruntes is defined %}
+                {% if livre not in livres_empruntes %}
+                    <a href="{{ path("profil_emprunter", { id: livre.id }) }}" class="card-link"> 
+                        <i class="fa fa-cart-arrow-down"></i> Emprunter 
+                    </a>
+                {% else %}
+                    <a  class="card-link text-danger"> 
+                        <i class="fa fa-times"></i> Indisponible 
+                    </a>
+                                
+                {% endif %}
+            {% endif %}
+
+        {% endif %}
+    </div>
+</div>

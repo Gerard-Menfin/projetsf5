@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% include "_menu.html.twig" %}
+
+            {# Pour accéder aux messages flash, j'utilise app.flashes #}
+            {% for type, messages in app.flashes %}
+                {% for msg in messages %}
+                    <div class="alert alert-{{ type }}">{{ msg|raw }}</div>
+                {% endfor %}
+            {% endfor %}
+
+            <h1>Bienvenue à la bibliothèque</h1>
+        
+            {% block body %}
+                <p>Bonjour, {{ prenom|capitalize }} </p>
+            {% endblock %}
+
+            <footer>
+                <p>Ceci est le footer</p>
+            </footer>
+        </div>
+    </body>
+</html>
+
+{# COMMENTAIRES TWIG #}
+{# 
+    Il ne doit JAMAIS y avoir de balise PHP dans un fichier Twig
+
+    Une balise twig est délimité par {%  et %}  (au lieu de < et > en html)
+    Entre les {% %}, il y a le type de la balise
+    Une balise est fermé par {% 'end' suivi du type de la balise %}
+
+    - Pour afficher le contenu d'une variable on utilise {{ }}
+    - Les noms des variables ne commencent pas par $
+    - Les noms des variables correspondent aux indices de l'array passé en 2ème paramètre
+        de la méthode 'render'
+ #}

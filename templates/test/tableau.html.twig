@@ -1,0 +1,45 @@
+{# Le mot-clé 'extends' indique que le fichier 'hérite' du fichier base.html.twig 
+    ça veut dire que le contenu de ses balises 'block' vont remplacer le contenu des balises
+    block de base.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {# TESTS : les tests permettent de tester une variable 
+        syntaxe : variable is test #}
+    {% if tableau is defined and tableau is not empty %}
+
+        <h2>Contenu de la variable 'tableau' :</h2>
+        <ul>
+            <li>{{ tableau[0] }}</li>
+            <li>{{ tableau[1] }}</li>
+            <li>{{ tableau[2] }}</li>
+        </ul>
+
+        <hr>
+
+        {# STRUCTURE ITERATIVE : FOR #}
+        <h2>Equivalent du ForEach</h2>
+        <ul>
+            {% for valeur in tableau %}
+                <li>{{ valeur }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>Boucle FOR</h2>
+    {% for i in 1..10 %}
+        {{ i * 2 }} -
+    {% endfor %}
+
+    <p>Je m'appelle {{ personne.prenom ~ " " ~ personne.nom  }} et j'ai {{ personne.age }} ans.</p>
+
+    <p>Je suis 
+    {% for valeur in personne %}
+        {{ valeur ~ " " }}
+    {% endfor %}
+    </p>
+{% endblock %}
+
+{% block test %}
+    est-ce que ça s'affiche ? 
+{% endblock %}

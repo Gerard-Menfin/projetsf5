@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des abonnés{% endblock %}
+
+{% block body %}
+    <h1>Liste des abonnés</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pseudo</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for abonne in abonnes %}
+            <tr>
+                <td>{{ abonne.id }}</td>
+                <td>{{ abonne.pseudo }}</td>
+                <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
+                <td>{{ abonne.password ? "***" : "" }}</td>
+                <td>{{ abonne.nom }}</td>
+                <td>{{ abonne.prenom }}</td>
+                <td>
+                    <a href="{{ path('abonne_show', {'id': abonne.id}) }}">
+                        <i class="fa fa-user"></i>
+                    </a>
+                    <a href="{{ path('abonne_edit', {'id': abonne.id}) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun abonné enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('abonne_new') }}" class="btn btn-primary">Ajouter</a>
+{% endblock %}

@@ -1,0 +1,91 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ path("accueil") }}">Biblio</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      {% if app.user %} {# si app.user est 'vrai', c'est qu'un utilisateur est connecté #}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path("profil_index") }}">
+            <i class="fa fa-user"></i> {{ app.user.pseudo }}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path("app_logout") }}">
+            <i class="fa fa-sign-out-alt"></i> Déconnexion
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path("app_login") }}">
+            <i class="fa fa-sign-in-alt"></i> Connexion
+          </a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path("app_register") }}">
+            <i class="fa fa-user-plus"></i> Inscription
+          </a>
+        </li>
+      {% endif %}
+
+      {% if is_granted("ROLE_ADMIN") %} {# is_granted permet de vérifier si l'utilisateur connecté à le rôle demandé #}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Livres
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path("livre_nouveau") }}">Ajouter un livre</a>
+            <a class="dropdown-item" href="{{ path("livre") }}">Liste des livres</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ path("livre_mes_livres") }}">Mes livres</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Catégories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path("categorie_new") }}">Ajouter une catégorie</a>
+            <a class="dropdown-item" href="{{ path("categorie_index") }}">Liste des catégories</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Abonnés
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path("abonne_new") }}">Ajouter un abonné</a>
+            <a class="dropdown-item" href="{{ path("abonne_index") }}">Liste des abonnés</a>
+          </div>
+        </li>
+      {% endif %}
+
+      {% if is_granted("ROLE_BIBLIO") %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Emprunts
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path("emprunt_new") }}">Ajouter un emprunt</a>
+            <a class="dropdown-item" href="{{ path("emprunt_index") }}">Liste des emprunts</a>
+          </div>
+        </li>
+      {% endif %}
+      
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="{{ path("recherche_index") }}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
+</nav>

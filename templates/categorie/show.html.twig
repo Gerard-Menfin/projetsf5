@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ categorie.titre }}</td>
+            </tr>
+            <tr>
+                <th>Mots clés</th>
+                <td>{{ categorie.mots }}</td>
+            </tr>
+            <tr>
+                <th>Livres de la catégorie</th>
+                <td>
+                    <ul class="list-group">
+                        {% for livre in categorie.livres %}
+                            <li class="list-group-item">
+                                <a href="{{ path("livre_fiche", {id: livre.id}) }}">{{ livre.id }}</a> - {{ livre.titre }} de {{ livre.auteur }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('categorie_index') }}">back to list</a>
+
+    <a href="{{ path('categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+    {{ include('categorie/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Couverture</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Catégorie</th>
+                <th>Disponible</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for livre in livres %}
+                <tr>
+                    <td>{{ livre.id }}</td>
+                    <td>
+                        <img src="{{ dossier_images ~ livre.couverture }}" alt="{{ livre.titre }}" class="miniature">
+                    </td>
+                    <td>{{ livre.titre }}</td>
+                    <td>{{ livre.auteur }}</td>
+                    <td>{{ livre.categorie ? livre.categorie.titre : "" }}</td>
+                    <td>{{ livre in livres_empruntes ? "❌" : "✔" }}</td>
+                    <td>
+                        <a href="{{ path("livre_fiche", {id: livre.id}) }}">
+                            <i class="fa fa-book"></i>
+                        </a>
+                        <a href="{{ path("livre_modifier", {id: livre.id}) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{{ path("livre_supprimer", {id: livre.id}) }}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
