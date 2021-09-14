@@ -25,7 +25,7 @@
                 {% endfor %}
             {% endfor %}
 
-            <h1>Bienvenue à la bibliothèque</h1>
+            <h1>{% block h1 %}Biblio{% endblock %}</h1>
         
             {% block body %}
                 <p>Bonjour, {{ prenom|capitalize }} </p>
